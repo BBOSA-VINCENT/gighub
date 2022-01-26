@@ -1,0 +1,15 @@
+import 'package:flutter/material.dart';
+
+class SplashScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Colors.teal[600],
+        body: Center(
+          child: Image.asset('gighub.png'),
+        ),
+      ),
+    );
+  }
+}
