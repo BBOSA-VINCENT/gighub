@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gighub/forgot_password_page.dart';
+import 'package:gighub/mainAppPage.dart';
+import 'package:gighub/signup.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -8,37 +11,35 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeData theme = ThemeData();
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: theme.copyWith(
-        colorScheme: theme.colorScheme.copyWith(primary: Colors.teal[600]),
+        colorScheme: theme.colorScheme.copyWith(primary: Colors.teal[400]),
       ),
       home: Scaffold(
-        body: Column(
+          body: SingleChildScrollView(
+        reverse: true,
+        child: Column(
           children: [
-            Text(
-              'Welcome to',
-              style: TextStyle(
-                fontFamily: 'MochiyPopOne',
-                fontSize: 25,
-              ),
-            ),
-            Image.asset('gighub.png'),
+            new Image.asset('assets/gighub.png', width: 200.0, height: 200.0),
             CircleAvatar(
-              backgroundImage: AssetImage('assets/people.jpg'),
-              radius: 70.0,
+              backgroundColor: Colors.teal[400],
+              child:
+                  Image.asset('assets/people.jpg', width: 100.0, height: 100.0),
+              radius: 60.0,
             ),
             Divider(
               height: 20.0,
-              color: Colors.teal[600],
+              color: Colors.teal[400],
             ),
             SizedBox(
               width: 300,
               child: TextFormField(
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   hintText: 'Enter Phone Number',
                   border: OutlineInputBorder(),
                   labelText: 'Phone Number',
                 ),
-                keyboardType: TextInputType.number,
               ),
             ),
             SizedBox(height: 20),
@@ -55,7 +56,12 @@ class LoginScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainPage()),
+                );
+              },
               child: Text('LOGIN'),
               style: ElevatedButton.styleFrom(
                 shape: new RoundedRectangleBorder(
@@ -64,12 +70,27 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 5),
-            TextButton(onPressed: () {}, child: Text('Forgot Password')),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ForgotPasswordPage()),
+                  );
+                },
+                child: Text('Forgot Password')),
             Text("Dont have an account?"),
-            TextButton(onPressed: () {}, child: Text('Sign up')),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUp()),
+                  );
+                },
+                child: Text('Sign up')),
           ],
         ),
-      ),
+      )),
     );
   }
 }

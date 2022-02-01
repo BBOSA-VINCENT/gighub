@@ -9,7 +9,7 @@ class MainDrawer extends StatelessWidget {
           Container(
             width: double.infinity,
             padding: EdgeInsets.all(20),
-            color: Colors.teal[600],
+            color: Colors.teal[400],
             child: Center(
               child: Column(
                 children: [
@@ -19,12 +19,9 @@ class MainDrawer extends StatelessWidget {
                     margin: EdgeInsets.only(
                       top: 30,
                     ),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: AssetImage('people.jpg'),
-                        fit: BoxFit.fill,
-                      ),
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage('assets/people.jpg'),
+                      radius: 40.0,
                     ),
                   ),
                   Text(
@@ -41,7 +38,7 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(
               Icons.person_outline,
-              color: Colors.teal[600],
+              color: Colors.teal[400],
             ),
             title: Text(
               'Profile',
@@ -49,28 +46,28 @@ class MainDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.work, color: Colors.teal[600]),
+            leading: Icon(Icons.work, color: Colors.teal[400]),
             title: Text(
               'Gigs',
               style: TextStyle(fontSize: 18),
             ),
           ),
           ListTile(
-            leading: Icon(Icons.payment, color: Colors.teal[600]),
+            leading: Icon(Icons.payment, color: Colors.teal[400]),
             title: Text(
               'Payment methods',
               style: TextStyle(fontSize: 18),
             ),
           ),
           ListTile(
-            leading: Icon(Icons.help_outline, color: Colors.teal[600]),
+            leading: Icon(Icons.help_outline, color: Colors.teal[400]),
             title: Text(
               'Help',
               style: TextStyle(fontSize: 18),
             ),
           ),
           ListTile(
-            leading: Icon(Icons.info_outline, color: Colors.teal[600]),
+            leading: Icon(Icons.info_outline, color: Colors.teal[400]),
             title: Text(
               'About',
               style: TextStyle(fontSize: 18),
