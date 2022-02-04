@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta name="viewport" content="with=device-width, initial-scale=1.0">
+   <title>Gig Hub</title>
+   <link rel="stylesheet" href="style.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link
+      href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&family=Poppins:ital,wght@0,100;0,200;0,400;0,600;0,700;1,100&display=swap"
+      rel="stylesheet">
+      <script src="https://kit.fontawesome.com/6dababb460.js" crossorigin="anonymous"></script>
+
+
+
+</head>
+
+<body>
+   <section class="contact-header">
+      <nav>
+         <a href="index.html"><img src="images/gighub.png"></a>
+         <div class="nav-links" id="navLinks">
+            <i class="fas fa-times" onclick="hideMenu()"></i>
+            <ul>
+               <li><a href="index.html">HOME</a></li>
+               <li><a href="about.html">ABOUT</a></li>
+               <li><a href="meet.html">MEET THE TEAM</a></li>
+               <li><a href="contact.html">CONTACT</a></li>
+
+
+
+            </ul>
+
+         </div>
+         <i class="fas fa-bars" onclick="showMenu()"></i>
+      </nav>
+      <h1>Contact Us</h1>
+
+   </section>
+
+   <!----Contact Us-->
+   <section class="location">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63835.77655670168!2d32.
+      54244728825926!3d0.3679794812679816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177
+      dbc79bf6c9f67%3A0x77e770865a9fc!2sKawempe%20Division%2C%20Kampala!5e0!3m2!1sen!2sug!4v16439
+      14062886!5m2!1sen!2sug" width="600" height="450" style="border:0;" allowfullscreen="" 
+      loading="lazy"></iframe>
+
+   </section>
+
+   <section class="contact-us">
+      <div class="row">
+         <div class="contact-col">
+            <div>
+               <i class="fas fa-home"></i>
+               <span>
+                  <h5>Room78,Wandegeya Market,Wandegeya Road</h5>
+                  <p>Kampala,Uganda</p>
+               </span>
+
+            </div>
+         </div>
+         <div class="contact-col">
+            <div>
+               <i class="fas fa-phone-alt"></i>
+               <span>
+                  <h5>+256 7811792610</h5>
+                  <p>Monday to Saturday,10am to 6pm</p>
+               </span>
+
+            </div>
+
+         </div>
+         <div class="contact-col">
+            <div>
+               <i class="fas fa-envelope"></i>
+
+               <span>
+                  <h5>info@gighub.com</h5>
+                  <p>Enter your query</p>
+               </span>
+
+            </div>
+      </div>
+      <div class="contact-col">
+         <form class="formHandler.php" methos="post">
+            <input type ="text" name="name" placeholder="Enter your name" required>
+            <input type ="email" name="email" placeholder="Enter email address" required>
+            <input type ="text" name="inquiry" placeholder="Enter your inquiry" required>
+            <textarea rows="8" name="message" placeholder="Message" required></textarea>
+            <button type="submit"class="hero-btn">Send Message</button>
+         </form>
+      </div>
+
+   </section>
+
+   
+   
+
+
+   
+   
+   <!-----footer---->
+   <section class="footer">
+      <h3>Connect with us</h3>
+      <p>Find us:</p>
+      <div class="icons">
+         <i class="fab fa-facebook-square"></i>
+         <i class="fab fa-twitter-square"></i>
+         <i class="fab fa-instagram-square"></i>
+         <i class="fab fa-linkedin"></i>
+      
+      </div>
+      <p>Made with <i class="fas fa-heart"></i> by Mene Kevin.</p>
+   </section>
+
+
+
+
+
+<!--------JavaScript for togo menu------------->
+   <script>
+      var navLinks = document.getElementById("navLinks");
+   function showMenu(){
+      navLinks.style.right="0";
+   }
+   function hideMenu(){
+      navLinks.style.right="-200px";}
+   </script>
+</body>
+
+
+
+</html>
