@@ -1,7 +1,11 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:gighub/forgot_password_page.dart';
 import 'package:gighub/loginscreen.dart';
 import 'package:gighub/mainAppPage.dart';
+import 'package:gighub/signup.dart';
+import 'package:gighub/user_state.dart';
+import 'package:gighub/wrapper.dart';
 
 class SplashScreen extends StatelessWidget {
   @override
@@ -18,7 +22,7 @@ class SplashScreen extends StatelessWidget {
                 width: 200.0, height: 200.0),
           ),
         ),
-        nextScreen: LoginScreen(),
+        nextScreen: Wrapper(),
       ),
     );
   }

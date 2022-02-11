@@ -1,15 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 
-class PostJob extends StatelessWidget {
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
-  late String gig;
-  late String descrpt;
-  late int amount;
+class PostJob extends StatefulWidget {
+  String uploadedBy;
+  PostJob({required this.uploadedBy});
 
   @override
+  State<PostJob> createState() => _PostJobState();
+}
+
+class _PostJobState extends State<PostJob> {
+  // late String description;
+  // late String amount;
+
+  final nameController = TextEditingController();
+  final descriptionController = TextEditingController();
+  final amountController = TextEditingController();
+
+  // CollectionReference users = FirebaseFirestore.instance.collection('users');
+  @override
   Widget build(BuildContext context) {
+    CollectionReference gigs = FirebaseFirestore.instance.collection('gigs');
     ThemeData theme = ThemeData();
     return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -27,9 +41,7 @@ class PostJob extends StatelessWidget {
                     height: 20,
                   ),
                   TextFormField(
-                    onChanged: (value) {
-                      gig = value;
-                    },
+                    controller: nameController,
                     decoration: InputDecoration(
                       labelText: 'Gig Name',
                       border: OutlineInputBorder(),
@@ -39,9 +51,8 @@ class PostJob extends StatelessWidget {
                     height: 20,
                   ),
                   TextFormField(
-                    onChanged: (value) {
-                      descrpt = value;
-                    },
+                    maxLength: 40,
+                    controller: descriptionController,
                     decoration: InputDecoration(
                       labelText: 'Description',
                       border: OutlineInputBorder(),
@@ -51,9 +62,7 @@ class PostJob extends StatelessWidget {
                     height: 20,
                   ),
                   TextFormField(
-                    onChanged: (value) {
-                      amount = value as int;
-                    },
+                    controller: amountController,
                     decoration: InputDecoration(
                         labelText: 'Amount to be paid',
                         border: OutlineInputBorder()),
@@ -64,11 +73,17 @@ class PostJob extends StatelessWidget {
                       'Submit',
                     ),
                     onPressed: () async {
-                      await users.add({
-                        'gig': gig,
-                        'descprition': descrpt,
-                        'amount': amount,
-                      }).then((value) => print('user added'));
+                      //uploadedBy = FirebaseAuth.instance.currentUser;
+                      WidgetsFlutterBinding.ensureInitialized();
+                      await Firebase.initializeApp();
+                      gigs.add({
+                        'name': nameController.text,
+                        'description': descriptionController.text,
+                        'amount': amountController.text,
+                      });
+                      nameController.clear();
+                      descriptionController.clear();
+                      amountController.clear();
                     },
                     style: ElevatedButton.styleFrom(
                       shape: new RoundedRectangleBorder(

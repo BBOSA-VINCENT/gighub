@@ -1,14 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gighub/auth_service.dart';
 import 'package:gighub/forgot_password_page.dart';
 import 'package:gighub/mainAppPage.dart';
+import 'package:gighub/otp.dart';
 import 'package:gighub/signup.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
+  final _signUpFormKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+    final authService = Provider.of<AuthService>(context);
+
     ThemeData theme = ThemeData();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -34,11 +44,12 @@ class LoginScreen extends StatelessWidget {
             SizedBox(
               width: 300,
               child: TextFormField(
-                keyboardType: TextInputType.number,
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  hintText: 'Enter Phone Number',
+                  hintText: 'Enter email',
                   border: OutlineInputBorder(),
-                  labelText: 'Phone Number',
+                  labelText: 'Email',
                 ),
               ),
             ),
@@ -46,6 +57,7 @@ class LoginScreen extends StatelessWidget {
             SizedBox(
               width: 300,
               child: TextFormField(
+                controller: passwordController,
                 decoration: InputDecoration(
                   hintText: 'Enter Password',
                   border: OutlineInputBorder(),
@@ -57,10 +69,9 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MainPage()),
-                );
+                authService.signInWithEmailAndPassword(
+                    emailController.text, passwordController.text);
+                // Navigator.canPop(context) ? Navigator.pop(context) : null;
               },
               child: Text('LOGIN'),
               style: ElevatedButton.styleFrom(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gighub/auth_service.dart';
+import 'package:gighub/authgate.dart';
 import 'package:gighub/forgot_password_page.dart';
 import 'package:gighub/forgot_password_verification.dart';
 import 'package:gighub/loginscreen.dart';
@@ -9,31 +11,41 @@ import 'package:gighub/signup.dart';
 import 'package:gighub/mainAppPage.dart';
 import 'package:gighub/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:gighub/user_state.dart';
+import 'package:gighub/view_job.dart';
+import 'package:gighub/wrapper.dart';
+import 'package:provider/provider.dart';
+
+//import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(GigHub());
 }
 
 class GigHub extends StatelessWidget {
-  GigHub({Key? key}) : super(key: key);
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'GigHub',
-      home: FutureBuilder(
-          future: _initialization,
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              print('Error');
-            }
-            if (snapshot.connectionState == ConnectionState.done) {}
-            return SplashScreen();
-          }),
+    return MultiProvider(
+      providers: [
+        Provider<AuthService>(
+          create: (_) => AuthService(),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'GigHub',
+        home: SplashScreen(),
+      ),
     );
   }
 }
+  
+  //   return MaterialApp(
+  //       debugShowCheckedModeBanner: false,
+  //       title: 'GigHub',
+  //       home: SplashScreen());
+  // }}

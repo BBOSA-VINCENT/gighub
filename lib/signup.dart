@@ -1,8 +1,35 @@
+//REQUIRED
+import 'dart:io';
+//import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gighub/auth_service.dart';
+//import 'package:gighub/user_state.dart';
+import 'package:provider/provider.dart';
 
 class SignUp extends StatelessWidget {
+  late String firstname;
+  late String lastname;
+  late String email;
+  late String password;
+  late String phone;
+  late String location;
+
+  bool _obscureText = true;
+  static GlobalKey<FormState> _FormKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    final TextEditingController firstNameController = TextEditingController();
+    final TextEditingController lastnameController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController phoneController = TextEditingController();
+    final TextEditingController locationController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+    final authService = Provider.of<AuthService>(context);
+
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
     ThemeData theme = ThemeData();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -10,7 +37,10 @@ class SignUp extends StatelessWidget {
         colorScheme: theme.colorScheme.copyWith(primary: Colors.teal[400]),
       ),
       home: Scaffold(
-          body: SingleChildScrollView(
+        appBar: AppBar(),
+        body: Form(
+          key: _FormKey,
+          child: SingleChildScrollView(
               reverse: true,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -31,6 +61,8 @@ class SignUp extends StatelessWidget {
                   SizedBox(
                     width: 300,
                     child: TextFormField(
+                      keyboardType: TextInputType.name,
+                      controller: firstNameController,
                       decoration: InputDecoration(
                         hintText: 'Enter First Name',
                         border: OutlineInputBorder(),
@@ -42,6 +74,8 @@ class SignUp extends StatelessWidget {
                   SizedBox(
                     width: 300,
                     child: TextFormField(
+                      keyboardType: TextInputType.name,
+                      controller: lastnameController,
                       decoration: InputDecoration(
                         hintText: 'Enter Last Name',
                         border: OutlineInputBorder(),
@@ -53,7 +87,21 @@ class SignUp extends StatelessWidget {
                   SizedBox(
                     width: 300,
                     child: TextFormField(
-                      keyboardType: TextInputType.number,
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        hintText: 'Enter email',
+                        border: OutlineInputBorder(),
+                        labelText: 'Email',
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  SizedBox(
+                    width: 300,
+                    child: TextFormField(
+                      controller: phoneController,
+                      keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         hintText: 'Enter Phone Number',
                         border: OutlineInputBorder(),
@@ -65,10 +113,26 @@ class SignUp extends StatelessWidget {
                   SizedBox(
                     width: 300,
                     child: TextFormField(
+                      controller: passwordController,
+                      obscureText: true,
                       decoration: InputDecoration(
-                        hintText: 'Enter Password',
+                        // suffixIcon: GestureDetector(
+                        //   onTap: () {
+                        //     setState(() {
+                        //       _obscureText:
+                        //       !_obscureText;
+                        //     });
+                        //   },
+                        //   child: Icon(
+                        //     _obscureText
+                        //         ? Icons.visibility
+                        //         : Icons.visibility_off,
+                        //     color: Colors.teal[400],
+                        //   ),
+                        // ),
+                        hintText: 'Enter password',
                         border: OutlineInputBorder(),
-                        labelText: 'Password',
+                        labelText: 'password',
                       ),
                     ),
                   ),
@@ -76,6 +140,7 @@ class SignUp extends StatelessWidget {
                   SizedBox(
                     width: 300,
                     child: TextFormField(
+                      controller: locationController,
                       decoration: InputDecoration(
                         hintText: 'Location',
                         border: OutlineInputBorder(),
@@ -93,19 +158,33 @@ class SignUp extends StatelessWidget {
                     Text("I accept all"),
                     TextButton(
                         onPressed: () {}, child: Text('terms and conditions')),
+                    SizedBox(
+                      height: 20,
+                    ),
                   ]),
                   SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      _FormKey.currentState!.save();
+                      await authService.createUserWithEmailAndPassword(
+                          emailController.text,
+                          passwordController.text,
+                          firstNameController.text,
+                          lastnameController.text,
+                          phoneController.text,
+                          locationController.text);
+                      Navigator.pop(context);
+                    },
                     child: Text('REGISTER'),
                     style: ElevatedButton.styleFrom(
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(60.0),
-                      ),
-                    ),
+                        shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(60.0),
+                    )),
                   ),
                 ],
-              ))),
+              )),
+        ),
+      ),
     );
   }
 }

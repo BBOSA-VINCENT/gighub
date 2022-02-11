@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gighub/loginscreen.dart';
@@ -11,6 +13,10 @@ class ForgotPasswordPage extends StatefulWidget {
 }
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+  late var phoneNumber;
+  var _phoneController = TextEditingController();
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -83,6 +89,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           children: <Widget>[
                             Container(
                               child: TextFormField(
+                                controller: _phoneController,
                                 decoration: InputDecoration(
                                   hintText: 'Enter Phone Number',
                                   border: OutlineInputBorder(),
@@ -122,7 +129,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                     ),
                                   ),
                                 ),
-                                onPressed: () {
+                                onPressed: () async {
+                                  WidgetsFlutterBinding.ensureInitialized();
+                                  await Firebase.initializeApp();
+                                  users.add({
+                                    'phoneNumber': _phoneController.text,
+                                  });
+                                  _phoneController.clear();
                                   if (_formKey.currentState!.validate()) {
                                     Navigator.pushReplacement(
                                       context,
