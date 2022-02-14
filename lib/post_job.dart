@@ -23,7 +23,9 @@ class _PostJobState extends State<PostJob> {
   // CollectionReference users = FirebaseFirestore.instance.collection('users');
   @override
   Widget build(BuildContext context) {
-    CollectionReference gigs = FirebaseFirestore.instance.collection('gigs');
+    String? uid_ = FirebaseAuth.instance.currentUser?.uid;
+    CollectionReference gigs =
+        FirebaseFirestore.instance.collection('users').doc().collection('gigs');
     ThemeData theme = ThemeData();
     return MaterialApp(
         debugShowCheckedModeBanner: false,
