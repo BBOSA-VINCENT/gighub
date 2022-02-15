@@ -14,16 +14,18 @@ class Gigs extends StatefulWidget {
 
 class _GigsState extends State<Gigs> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  final db = FirebaseFirestore.instance;
+  //CollectionReference gigs = FirebaseFirestore.instance.collection('gigs');
+  CollectionReference gigs =
+      FirebaseFirestore.instance.collection('users').doc().collection('gigs');
+  ThemeData theme = ThemeData();
   @override
   Widget build(BuildContext context) {
-    CollectionReference gigs = FirebaseFirestore.instance.collection('gigs');
-    String docId = gigs.doc().id;
-    ThemeData theme = ThemeData();
+    String? uid_ = FirebaseAuth.instance.currentUser?.uid;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme.copyWith(
-        colorScheme: theme.colorScheme.copyWith(primary: Colors.teal[200]),
+        colorScheme: theme.colorScheme.copyWith(primary: Colors.teal[300]),
       ),
       home: Scaffold(
         body: Container(
@@ -37,7 +39,7 @@ class _GigsState extends State<Gigs> {
                       var doc = snapshot.data!.docs[index];
                       return ListTile(
                         minVerticalPadding: 20,
-                        onLongPress: () {}, // _deleteDialog(docId),
+                        onLongPress: _deleteDialog,
                         leading: IconButton(
                           onPressed: () {},
                           icon: Icon(Icons.edit),
@@ -86,12 +88,12 @@ class _GigsState extends State<Gigs> {
     );
   }
 
-  _deleteDialog(String id) async {
+  _deleteDialog() async {
+    String doc_1 = gigs.doc().id;
     User? user = _auth.currentUser;
     final _uid = user!.uid;
-    //PostJob p = PostJob(uploadedBy: _uid);
-
-    // final uid = Provider.of(context).auth.getCurrentUID();
+    // PostJob p = PostJob(uploadedBy: _uid);
+    //final uid = Provider.of(context).auth.getCurrentUID();
     showDialog(
         context: context,
         builder: (contex) {
@@ -100,10 +102,10 @@ class _GigsState extends State<Gigs> {
               TextButton(
                 onPressed: () async {
                   try {
-                    if (id == _uid) {
+                    if (doc_1 != _uid) {
                       await FirebaseFirestore.instance
-                          .collection('gigs')
-                          .doc(_uid)
+                          .collection('users')
+                          .doc(doc_1)
                           .delete();
                       await Fluttertoast.showToast(
                         msg: "Task has been deleted",

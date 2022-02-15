@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:gighub/gig_view.dart';
 import 'package:gighub/main_drawer.dart';
 import 'package:gighub/post_job.dart';
-import 'package:gighub/view_job.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class MainPage extends StatelessWidget {

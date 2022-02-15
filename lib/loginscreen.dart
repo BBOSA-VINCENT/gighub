@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:gighub/auth_service.dart';
 import 'package:gighub/forgot_password_page.dart';
 import 'package:gighub/mainAppPage.dart';
-import 'package:gighub/otp.dart';
 import 'package:gighub/signup.dart';
 import 'package:provider/provider.dart';
 
