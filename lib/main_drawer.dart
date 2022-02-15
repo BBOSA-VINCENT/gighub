@@ -68,7 +68,7 @@ class _MainDrawerState extends State<MainDrawer> {
   //         );
   //      });
   //}
-
+static const IconData verified= IconData(0xe699,fontFamily: 'MaterialIcons');
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
     return Drawer(
@@ -96,6 +96,11 @@ class _MainDrawerState extends State<MainDrawer> {
                     'BBOSA VINCENT',
                     style: TextStyle(fontSize: 22),
                   ),
+                  IconButton(
+                    onPressed: (){}, 
+                    icon: new Icon(Icons.verified),
+                    color: Colors.black,
+                    highlightColor: Colors.white,),
                   Text(
                     '+256701429555',
                   ),
