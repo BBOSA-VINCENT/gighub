@@ -103,7 +103,8 @@ static const IconData verified= IconData(0xe699,fontFamily: 'MaterialIcons');
                     onPressed: (){}, 
                     icon: new Icon(Icons.verified),
                     color: Colors.black,
-                    highlightColor: Colors.white,),
+                    highlightColor: Colors.white,
+                  ),
                   Text(
                     '+256701429555',
                   ),
@@ -132,8 +133,15 @@ static const IconData verified= IconData(0xe699,fontFamily: 'MaterialIcons');
           ListTile(
             leading: Icon(Icons.payment, color: Colors.teal[400]),
             title: TextButton(
-              onPressed: () {},
-              child: Text('Payment methods',
+              onPressed: () {
+               Navigator.push(
+                              context,
+                                 MaterialPageRoute(
+                                  builder: (context) =>
+                                    Payments()),
+                 );
+              },
+              child: Text('Payments',
                   style: TextStyle(fontSize: 18, color: Colors.black)),
             ),
           ),
@@ -153,7 +161,14 @@ static const IconData verified= IconData(0xe699,fontFamily: 'MaterialIcons');
           ListTile(
             leading: Icon(Icons.info_outline, color: Colors.teal[400]),
             title: TextButton(
-              onPressed: () {},
+              onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                     About()),
+                );
+              },
               child: Text('About',
                   style: TextStyle(fontSize: 18, color: Colors.black)),
             ),
