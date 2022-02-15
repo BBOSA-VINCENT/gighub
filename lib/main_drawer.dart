@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:gighub/auth_service.dart';
 import 'package:gighub/main_drawer.dart';
 import 'package:gighub/profile_user.dart';
-import 'package:gighub/user_state.dart';
 import 'package:provider/provider.dart';
 
 class MainDrawer extends StatefulWidget {
@@ -111,9 +110,9 @@ class _MainDrawerState extends State<MainDrawer> {
             ),
             title: TextButton(
               onPressed: () {
-                final FirebaseAuth _auth = FirebaseAuth.instance;
-                final User? user = _auth.currentUser;
-                final String uid = user!.uid;
+                // final FirebaseAuth _auth = FirebaseAuth.instance;
+                // final User? user = _auth.currentUser;
+                // final String uid = user!.uid;
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => Profile()));
               },
@@ -134,7 +133,10 @@ class _MainDrawerState extends State<MainDrawer> {
           ListTile(
             leading: Icon(Icons.help_outline, color: Colors.teal[400]),
             title: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                //   Navigator.pushReplacement(
+                //       context, MaterialPageRoute(builder: (context) => ));
+              },
               child: Text('Help',
                   style: TextStyle(fontSize: 18, color: Colors.black)),
             ),

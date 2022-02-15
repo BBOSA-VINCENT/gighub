@@ -4,7 +4,6 @@ import 'package:gighub/forgot_password_page.dart';
 import 'package:gighub/loginscreen.dart';
 import 'package:gighub/mainAppPage.dart';
 import 'package:gighub/signup.dart';
-import 'package:gighub/user_state.dart';
 import 'package:gighub/wrapper.dart';
 
 class SplashScreen extends StatelessWidget {

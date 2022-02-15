@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
 class PostJob extends StatefulWidget {
-  String uploadedBy;
+  final String uploadedBy;
   PostJob({required this.uploadedBy});
 
   @override
@@ -23,9 +23,7 @@ class _PostJobState extends State<PostJob> {
   // CollectionReference users = FirebaseFirestore.instance.collection('users');
   @override
   Widget build(BuildContext context) {
-    String? uid_ = FirebaseAuth.instance.currentUser?.uid;
-    CollectionReference gigs =
-        FirebaseFirestore.instance.collection('users').doc().collection('gigs');
+    CollectionReference gigs = FirebaseFirestore.instance.collection('gigs');
     ThemeData theme = ThemeData();
     return MaterialApp(
         debugShowCheckedModeBanner: false,
