@@ -1,12 +1,12 @@
-# gighub
+# Gighub
 
-A new Flutter project.
+Our first Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is an application that enables individuals find small tasks to do to earn money.
 
-A few resources to get you started if this is your first Flutter project:
+Below are a few resources to get you started if this is your first Flutter project. We used these too:
 
 - [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
