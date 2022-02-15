@@ -5,6 +5,9 @@ import 'package:gighub/auth_service.dart';
 import 'package:gighub/main_drawer.dart';
 import 'package:gighub/profile_user.dart';
 import 'package:provider/provider.dart';
+import 'package:gighub/about.dart';
+import 'package:gighub/payments.dart';
+import 'package:gighub/rating.dart';
 
 class MainDrawer extends StatefulWidget {
   final String userImage;
