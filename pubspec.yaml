@@ -42,8 +42,6 @@ dependencies:
   cloud_firestore: ^3.1.7
   flutter_map: ^0.14.0
   latlong2: ^0.8.1
-  geocode: ^1.0.1
-  google_maps_flutter: ^2.1.1
   firebase_auth: ^3.3.6
   flutterfire_ui: ^0.3.2
   cupertino_list_tile: ^0.2.1
@@ -52,6 +50,8 @@ dependencies:
   fluttertoast: ^8.0.8
   provider: ^6.0.2
   image_picker: ^0.8.4+8
+  flutter_rating: ^0.0.2
+  flutter_phone_direct_caller: ^2.1.0
   
 dev_dependencies:
   flutter_test:

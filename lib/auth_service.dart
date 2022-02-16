@@ -4,6 +4,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:gighub/services/global_variables.dart';
+import 'package:gighub/uploaded_by.dart';
 import 'package:gighub/user.dart';
 import 'package:provider/provider.dart';
 
@@ -45,8 +46,8 @@ class AuthService {
         print(credential.user!.uid);
         //add user
         await _firestore.collection('users').doc(credential.user!.uid).set({
-          'firstname': firstname,
-          'lastname': lastname,
+          'firstname': firstname.toUpperCase(),
+          'lastname': lastname.toUpperCase(),
           'uid': credential.user!.uid,
           'email': email,
           'phone': phone,
@@ -57,6 +58,7 @@ class AuthService {
     } catch (err) {
       res = err.toString();
     }
+    await UploadedBy(uid: getCurrentUID()).user_phone(phone);
 
     return res;
   }
