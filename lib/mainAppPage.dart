@@ -38,9 +38,7 @@ class MainPage extends StatelessWidget {
               ],
             ),
           ),
-          drawer: MainDrawer(
-            userImage: '',
-          ),
+          drawer: MainDrawer(),
           body: TabBarView(
             children: [
               Gigs(),

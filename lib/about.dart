@@ -20,10 +20,10 @@ class About extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => MainDrawer()),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MainDrawer()),
+              );
             },
           ),
         ),
@@ -56,7 +56,7 @@ class About extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       Image.asset(
-                        'assets/eee.png',
+                        'assets/website.png',
                         height: 100,
                       ),
                       TextButton(
@@ -81,7 +81,7 @@ class About extends StatelessWidget {
                         'assets/github.png',
                         height: 100,
                       ),
-                      TextButton(
+                       TextButton(
                         onPressed: _launchGit,
                         child: Text(
                           'GitHub',
@@ -90,7 +90,7 @@ class About extends StatelessWidget {
                             fontSize: 18.0,
                             fontWeight: FontWeight.normal,
                             height: 3,
-                          ),
+                        ),
                         ),
                       ),
                     ],
