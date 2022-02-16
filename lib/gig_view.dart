@@ -3,9 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gighub/services/global_methods.dart';
+import 'package:gighub/uploaded_by.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'post_job.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
 class Gigs extends StatefulWidget {
   @override
@@ -16,11 +19,11 @@ class _GigsState extends State<Gigs> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final db = FirebaseFirestore.instance;
   //CollectionReference gigs = FirebaseFirestore.instance.collection('gigs');
-  CollectionReference gigs =
-      FirebaseFirestore.instance.collection('users').doc().collection('gigs');
+  CollectionReference gigs = FirebaseFirestore.instance.collection('gigs');
   ThemeData theme = ThemeData();
   @override
   Widget build(BuildContext context) {
+    String doc_1 = gigs.doc().id;
     String? uid_ = FirebaseAuth.instance.currentUser?.uid;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -37,44 +40,113 @@ class _GigsState extends State<Gigs> {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       var doc = snapshot.data!.docs[index];
-                      return ListTile(
-                        minVerticalPadding: 20,
-                        onLongPress: _deleteDialog,
-                        leading: IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.edit),
-                          color: Colors.teal[400],
-                        ),
-                        title: Text(
-                          doc['name'],
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        subtitle: Column(
-                          children: [
-                            Text(
-                              doc['description'],
+                      return Padding(
+                        padding: EdgeInsets.all(5),
+                        child: ListTile(
+                            tileColor: Colors.teal[200],
+                            minVerticalPadding: 20,
+                            onLongPress: () async {
+                              String doc_1 = gigs.doc().id;
+                              User? user = _auth.currentUser;
+                              final _uid = user!.uid;
+                              // PostJob p = PostJob(uploadedBy: _uid);
+                              //final uid = Provider.of(context).auth.getCurrentUID();
+                              showDialog(
+                                  context: context,
+                                  builder: (contex) {
+                                    return AlertDialog(
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () async {
+                                            try {
+                                              if (true) {
+                                                await FirebaseFirestore.instance
+                                                    .collection('gigs')
+                                                    .doc(doc.id)
+                                                    .delete();
+                                                await Fluttertoast.showToast(
+                                                  msg: "Task has been deleted",
+                                                  toastLength:
+                                                      Toast.LENGTH_LONG,
+                                                  backgroundColor: Colors.grey,
+                                                  fontSize: 18,
+                                                );
+                                                Navigator.canPop(contex)
+                                                    ? Navigator.pop(contex)
+                                                    : null;
+                                              } else {
+                                                GlobalMethod.showErrorDialog(
+                                                    error:
+                                                        "You cannot perform this action",
+                                                    ctx: contex);
+                                              }
+                                            } catch (error) {
+                                              GlobalMethod.showErrorDialog(
+                                                  error:
+                                                      "This task can't be deleted",
+                                                  ctx: context);
+                                            } finally {}
+                                          },
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.delete,
+                                                color: Colors.red,
+                                              ),
+                                              Text(
+                                                'Delete',
+                                                style: TextStyle(
+                                                    color: Colors.teal[400]),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
+                            //   await gigs.doc(doc.id).delete();
+                            // }, // _deleteDialog,
+                            leading: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.edit),
+                              color: Colors.teal[400],
+                            ),
+                            title: Text(
+                              doc['name'],
                               style: TextStyle(
-                                color: Colors.grey,
+                                color: Colors.black,
                               ),
                             ),
-                            Text(
-                              doc['amount'],
-                              style: TextStyle(
-                                color: Colors.teal[400],
-                              ),
+                            subtitle: Column(
+                              children: [
+                                Text(
+                                  doc['description'],
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Text(
+                                  doc['amount'],
+                                  style: TextStyle(
+                                    color: Colors.teal[600],
+                                  ),
+                                ),
+                              ],
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                             ),
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                        ),
-                        trailing: Text(
-                          'Visit Profile',
-                          style: TextStyle(
-                            color: Colors.teal[400],
-                          ),
-                        ),
+                            trailing: TextButton(
+                                onPressed: () async {
+                                  final number = doc['phone'];
+                                  launch('tel://$number');
+                                },
+                                child: Text(
+                                  "call",
+                                  style: TextStyle(color: Colors.teal[600]),
+                                ))),
                       );
                     });
               } else {
@@ -88,57 +160,57 @@ class _GigsState extends State<Gigs> {
     );
   }
 
-  _deleteDialog() async {
-    String doc_1 = gigs.doc().id;
-    User? user = _auth.currentUser;
-    final _uid = user!.uid;
-    // PostJob p = PostJob(uploadedBy: _uid);
-    //final uid = Provider.of(context).auth.getCurrentUID();
-    showDialog(
-        context: context,
-        builder: (contex) {
-          return AlertDialog(
-            actions: [
-              TextButton(
-                onPressed: () async {
-                  try {
-                    if (doc_1 != _uid) {
-                      await FirebaseFirestore.instance
-                          .collection('users')
-                          .doc(doc_1)
-                          .delete();
-                      await Fluttertoast.showToast(
-                        msg: "Task has been deleted",
-                        toastLength: Toast.LENGTH_LONG,
-                        backgroundColor: Colors.grey,
-                        fontSize: 18,
-                      );
-                      Navigator.canPop(contex) ? Navigator.pop(contex) : null;
-                    } else {
-                      GlobalMethod.showErrorDialog(
-                          error: "You cannot perform this action", ctx: contex);
-                    }
-                  } catch (error) {
-                    GlobalMethod.showErrorDialog(
-                        error: "This task can't be deleted", ctx: context);
-                  } finally {}
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.delete,
-                      color: Colors.red,
-                    ),
-                    Text(
-                      'Delete',
-                      style: TextStyle(color: Colors.teal[400]),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          );
-        });
-  }
+  // _deleteDialog() async {
+  //   String doc_1 = gigs.doc().id;
+  //   User? user = _auth.currentUser;
+  //   final _uid = user!.uid;
+  //   // PostJob p = PostJob(uploadedBy: _uid);
+  //   //final uid = Provider.of(context).auth.getCurrentUID();
+  //   showDialog(
+  //       context: context,
+  //       builder: (contex) {
+  //         return AlertDialog(
+  //           actions: [
+  //             TextButton(
+  //               onPressed: () async {
+  //                 try {
+  //                   if (true) {
+  //                     await FirebaseFirestore.instance
+  //                         .collection('gigs')
+  //                         .doc(doc.id)
+  //                         .delete();
+  //                     await Fluttertoast.showToast(
+  //                       msg: "Task has been deleted",
+  //                       toastLength: Toast.LENGTH_LONG,
+  //                       backgroundColor: Colors.grey,
+  //                       fontSize: 18,
+  //                     );
+  //                     Navigator.canPop(contex) ? Navigator.pop(contex) : null;
+  //                   } else {
+  //                     GlobalMethod.showErrorDialog(
+  //                         error: "You cannot perform this action", ctx: contex);
+  //                   }
+  //                 } catch (error) {
+  //                   GlobalMethod.showErrorDialog(
+  //                       error: "This task can't be deleted", ctx: context);
+  //                 } finally {}
+  //               },
+  //               child: Row(
+  //                 mainAxisAlignment: MainAxisAlignment.center,
+  //                 children: [
+  //                   Icon(
+  //                     Icons.delete,
+  //                     color: Colors.red,
+  //                   ),
+  //                   Text(
+  //                     'Delete',
+  //                     style: TextStyle(color: Colors.teal[400]),
+  //                   )
+  //                 ],
+  //               ),
+  //             ),
+  //           ],
+  //         );
+  //       });
+  // }
 }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:gighub/uploaded_by.dart';
 import 'package:provider/provider.dart';
 
 class PostJob extends StatefulWidget {
@@ -19,11 +20,14 @@ class _PostJobState extends State<PostJob> {
   final nameController = TextEditingController();
   final descriptionController = TextEditingController();
   final amountController = TextEditingController();
+  final phoneController = TextEditingController();
 
   // CollectionReference users = FirebaseFirestore.instance.collection('users');
   @override
   Widget build(BuildContext context) {
     CollectionReference gigs = FirebaseFirestore.instance.collection('gigs');
+    String? uid_ = FirebaseAuth.instance.currentUser?.uid;
+
     ThemeData theme = ThemeData();
     return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -67,6 +71,12 @@ class _PostJobState extends State<PostJob> {
                         labelText: 'Amount to be paid',
                         border: OutlineInputBorder()),
                   ),
+                  SizedBox(height: 20),
+                  TextFormField(
+                    controller: phoneController,
+                    decoration: InputDecoration(
+                        labelText: 'phone', border: OutlineInputBorder()),
+                  ),
                   SizedBox(height: 50),
                   ElevatedButton(
                     child: Text(
@@ -80,10 +90,12 @@ class _PostJobState extends State<PostJob> {
                         'name': nameController.text,
                         'description': descriptionController.text,
                         'amount': amountController.text,
+                        'phone': phoneController.text,
                       });
                       nameController.clear();
                       descriptionController.clear();
                       amountController.clear();
+                      phoneController.clear();
                     },
                     style: ElevatedButton.styleFrom(
                       shape: new RoundedRectangleBorder(
