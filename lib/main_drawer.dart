@@ -6,6 +6,7 @@ import 'package:gighub/auth_service.dart';
 import 'package:gighub/main_drawer.dart';
 import 'package:gighub/profile_user.dart';
 import 'package:provider/provider.dart';
+import 'help.dart';
 
 class MainDrawer extends StatefulWidget {
   final String userImage;
@@ -101,7 +102,10 @@ class _MainDrawerState extends State<MainDrawer> {
                 ListTile(
                   leading: Icon(Icons.info_outline, color: Colors.teal[400]),
                   title: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => Help()));
+                    },
                     child: Text('About',
                         style: TextStyle(fontSize: 18, color: Colors.black)),
                   ),
