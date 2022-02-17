@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating/flutter_rating.dart';
 import 'package:gighub/main_drawer.dart';
 
-class Test extends StatefulWidget {
+class Rating extends StatefulWidget {
   @override
-  _TestState createState() => new _TestState();
+  _RatingState createState() => new _RatingState();
 }
 
-class _TestState extends State {
+class _RatingState extends State {
   double rating = 3.5;
   int starCount = 6;
 

@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'post_job.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:gighub/map.dart';
 
 class Gigs extends StatefulWidget {
   @override
@@ -110,8 +111,14 @@ class _GigsState extends State<Gigs> {
                             //   await gigs.doc(doc.id).delete();
                             // }, // _deleteDialog,
                             leading: IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.edit),
+                              onPressed: () {
+                                Navigator.push(
+                      context,
+                       MaterialPageRoute(
+                           builder: (context) => Map()),
+                     );
+                              },
+                              icon: Icon(Icons.location_pin),
                               color: Colors.teal[400],
                             ),
                             title: Text(
