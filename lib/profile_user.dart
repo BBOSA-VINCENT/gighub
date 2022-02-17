@@ -1,10 +1,10 @@
-//REQUIRED
 //import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gighub/mainAppPage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
@@ -16,6 +16,7 @@ class _ProfileState extends State<Profile> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   User? user = FirebaseAuth.instance.currentUser;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,7 +108,7 @@ class _ProfileState extends State<Profile> {
                           width: MediaQuery.of(context).size.width / 2,
                           height: MediaQuery.of(context).size.width / 2,
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.white, width: 5),
+                            border: Border.all(color: Colors.black, width: 5),
                             shape: BoxShape.circle,
                             color: Colors.white,
                             image: DecorationImage(
@@ -127,7 +128,9 @@ class _ProfileState extends State<Profile> {
                             Icons.edit,
                             color: Colors.white,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            _showPickOptionsDialog(context);
+                          },
                         ),
                       ),
                     )
@@ -152,4 +155,45 @@ class HeaderCurvedContainer extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
+// _loadPicker(ImageSource source) async {
+//   late File _pickedImage;
+//   XFile image = await _pickedImage.pickImage(source: source);
+//   if (image != null) {
+//     setState(() {
+//       _pickedImage = image;
+//     });
+//   }
+// }
+
+void _showPickOptionsDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          ListTile(
+            title: Text('Pick from Gallery'),
+            onTap: () {
+              _loadPicker(ImageSource.gallery);
+            },
+          ),
+          ListTile(
+            title: Text('Take a Picture'),
+            onTap: () {
+              // _loadPicker(ImageSource.camera);
+              ImageSource.camera;
+            },
+          )
+        ],
+      ),
+    ),
+  );
+}
+
+Future<void> _loadPicker(ImageSource gallery) async {
+  var _picker;
+  final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 }
