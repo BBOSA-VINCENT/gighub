@@ -1,4 +1,5 @@
 import 'dart:async';
+//import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -13,35 +14,26 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-   Completer<GoogleMapController> _controller = Completer();
-   TextEditingController _searchController = TextEditingController();
+  Completer<GoogleMapController> _controller = Completer();
+  TextEditingController _searchController = TextEditingController();
 
-
-  static final CameraPosition _Wandegeya = CameraPosition(
-    target: LatLng(0.3335, 32.5675),
+  static final CameraPosition _Muk = CameraPosition(
+    target: LatLng(0.3289045, 32.5713868),
     zoom: 14.4746,
   );
 
-  static final Marker _WandegeyaMarker = Marker(
-    markerId: MarkerId('_Wandegeya'),
-    infoWindow: InfoWindow(title: 'Wandegeya'),
+  static final Marker _MukMarker = Marker(
+    markerId: MarkerId('_MukMarker'),
+    infoWindow: InfoWindow(title: 'Gig'),
     icon: BitmapDescriptor.defaultMarker,
     position: LatLng(0.3335, 32.5675),
   );
 
-  // static final CameraPosition _Muk = CameraPosition(
-  //     bearing: 192.8334901395799,
-  //     target: LatLng(0.3338, 32.5684),
-  //     tilt: 59.440717697143555,
-  //     zoom: 19.151926040649414);
 
-  // static final Marker _MukMarker = Marker(
-  //   markerId: MarkerId('_MukMarker'),
-  //   infoWindow: InfoWindow(title: 'Makerere University'),
-  //   icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-  //   position: LatLng(0.3338, 32.5684),
-  // );
-
+static final CameraPosition _Kampala = CameraPosition(
+    target: LatLng(0.3289045, 32.5713868),
+    zoom: 14.4746,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -64,43 +56,42 @@ class MapSampleState extends State<MapSample> {
       ),
       body: Column(
         children: [
-           Row(
-             children: [
-               Expanded(
-                   child: TextFormField(
-                 controller: _searchController,
-                 textCapitalization: TextCapitalization.words,
-                 decoration: InputDecoration(hintText: 'Search by place'),
-                 onChanged: (value) {
-                   print(value);
-                 },
-               )),
-               IconButton(
-                 onPressed: () async{
-                  var place=
-                    await LocationService().getPlace(_searchController.text);
-                    _goToPlace(place);
-                 },
-                 icon: Icon(Icons.search,
-                 ),
-               ),
-             ],
-           ),
+          Row(
+            children: [
+              Expanded(
+                  child: TextFormField(
+                controller: _searchController,
+                textCapitalization: TextCapitalization.words,
+                decoration: InputDecoration(hintText: 'Search by place'),
+                onChanged: (value) {
+                  print(value);
+                },
+              )),
+              IconButton(
+                onPressed: () async {
+                  var place =
+                      await LocationService().getPlace(_searchController.text);
+                  _getPlace(place);
+                },
+                icon: Icon(
+                  Icons.search,
+                ),
+              ),
+            ],
+          ),
           Expanded(
-            child:
-             GoogleMap(
+            child: GoogleMap(
               mapType: MapType.normal,
-               markers: {
-                 _WandegeyaMarker,
-               },
-            
-              initialCameraPosition: _Wandegeya,
-               onMapCreated: (GoogleMapController controller) {
-                 _controller.complete(controller);
-               },
+              markers: {
+                _MukMarker,
+              },
+              initialCameraPosition:
+                  CameraPosition(target: LatLng(0.347596, 32.582520)),
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+              },
             ),
           ),
-
           //  floatingActionButton: FloatingActionButton.extended(
           //    onPressed: _findYourGig,
           //    label: Text('Makerere University'),
@@ -109,25 +100,20 @@ class MapSampleState extends State<MapSample> {
       ),
     );
   }
+}
 
+var _controller;
 
-  Future<void> _goToPlace(Map<String, dynamic> place) async {
+Future<void> _getPlace(Map<String, dynamic> place) async {
+  final double lat = place['geometry']['location']['lat'];
+  final double lng = place['geometry']['location']['lng'];
+  final GoogleMapController controller = await _controller.future;
+  controller.animateCamera(CameraUpdate.newCameraPosition(
+    CameraPosition(target: LatLng(lat, lng), zoom: 12),
+  ));
+}
 
-    final double lat = place['geometry']['location']['lat'];
-    final double lng = place['geometry']['location']['lng'];
-     final GoogleMapController controller = await _controller.future;
-     controller.animateCamera(
-       CameraUpdate.newCameraPosition(
-       CameraPosition(target: LatLng(lat,lng),
-       zoom: 12
-       ),
-       )
-     );
-   }
-
-    Future<void> _findYourGig() async {
-      final GoogleMapController controller = await _controller.future;
-      controller.animateCamera(CameraUpdate.newCameraPosition(_Wandegeya));
-    }
- }
-
+// Future<void> _findYourGig() async {
+//   final GoogleMapController controller = await _controller.future;
+//   controller.animateCamera(CameraUpdate.newCameraPosition(_Kampala));
+// }

@@ -9,6 +9,8 @@ import 'package:gighub/profile_user.dart';
 import 'package:gighub/rating.dart';
 import 'package:provider/provider.dart';
 
+import 'help.dart';
+
 class MainDrawer extends StatefulWidget {
   //final String userImage;
 
@@ -147,8 +149,8 @@ class _MainDrawerState extends State<MainDrawer> {
             leading: Icon(Icons.help_outline, color: Colors.teal[400]),
             title: TextButton(
               onPressed: () {
-                //   Navigator.pushReplacement(
-                //       context, MaterialPageRoute(builder: (context) => ));
+                   Navigator.pushReplacement(
+                       context, MaterialPageRoute(builder: (context) => Help()));
               },
               child: Text('Help',
                   style: TextStyle(fontSize: 18, color: Colors.black)),

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:gighub/maps.dart';
 import 'package:gighub/services/global_methods.dart';
 import 'package:gighub/uploaded_by.dart';
 import 'package:provider/provider.dart';
@@ -110,9 +111,16 @@ class _GigsState extends State<Gigs> {
                             //   await gigs.doc(doc.id).delete();
                             // }, // _deleteDialog,
                             leading: IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.edit),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MapSample()),
+                                );
+                              },
+                              icon: Icon(Icons.location_pin),
                               color: Colors.teal[400],
+                              
                             ),
                             title: Text(
                               doc['name'],

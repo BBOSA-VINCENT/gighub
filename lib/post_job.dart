@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:gighub/uploaded_by.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,6 @@ class PostJob extends StatefulWidget {
 class _PostJobState extends State<PostJob> {
   // late String description;
   // late String amount;
-
   final nameController = TextEditingController();
   final descriptionController = TextEditingController();
   final amountController = TextEditingController();
@@ -78,6 +78,9 @@ class _PostJobState extends State<PostJob> {
                         labelText: 'phone', border: OutlineInputBorder()),
                   ),
                   SizedBox(height: 50),
+                  SizedBox(
+                    height: 20,
+                  ),
                   ElevatedButton(
                     child: Text(
                       'Submit',
