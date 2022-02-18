@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:gighub/main_drawer.dart';
 
 class Help extends StatelessWidget {
   @override
@@ -13,6 +14,19 @@ class Help extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.teal,
           title: Text('Help'),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
+            onPressed: () {
+               Navigator.push(
+                       context,
+                       MaterialPageRoute(
+                           builder: (context) => MainDrawer(userImage: '',)),
+                     );
+            },
+          )
         ),
         body: Column(children: [
           SizedBox(height: 10),
