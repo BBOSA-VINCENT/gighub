@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gighub/main_drawer.dart';
+import 'package:gighub/rating.dart';
 
 class Payments extends StatelessWidget {
   @override
@@ -85,13 +87,12 @@ class Payments extends StatelessWidget {
                                                 ),
                                                 child: Text('Rate and Review'),
                                                 onPressed: () {
-                                                  //
-                                                  // Navigator.push(
-                                                  //   context,
-                                                  //   MaterialPageRoute(
-                                                  //       builder: (context) =>
-                                                  //           Test()),
-                                                  // );
+                                                   Navigator.push(
+                                                     context,
+                                                     MaterialPageRoute(
+                                                         builder: (context) =>
+                                                             Rating()),
+                                                   );
                                                 },
                                               ),
                                             ),
@@ -106,12 +107,12 @@ class Payments extends StatelessWidget {
                                                   'Skip',
                                                 ),
                                                 onPressed: () {
-                                                  // Navigator.push(
-                                                  //   context,
-                                                  //   MaterialPageRoute(
-                                                  //       builder: (context) =>
-                                                  //           MainDrawer()),
-                                                  // );
+                                                   Navigator.push(
+                                                     context,
+                                                     MaterialPageRoute(
+                                                         builder: (context) =>
+                                                             MainDrawer(userImage: '',)),
+                                                   );
                                                 },
                                               ),
                                             )

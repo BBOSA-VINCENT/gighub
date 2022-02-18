@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating/flutter_rating.dart';
 import 'package:gighub/main_drawer.dart';
+import 'package:gighub/mainAppPage.dart';
 
 class Rating extends StatefulWidget {
   @override
@@ -23,11 +24,11 @@ class _RatingState extends State {
               color: Colors.white,
             ),
             onPressed: () {
-              // Navigator.push(
-              //         context,
-              //         MaterialPageRoute(
-              //             builder: (context) => MainDrawer()),
-              //       );
+               Navigator.push(
+                       context,
+                       MaterialPageRoute(
+                           builder: (context) => MainDrawer(userImage: '',)),
+                     );
             },
           )),
       body: new Column(
@@ -101,20 +102,62 @@ class _RatingState extends State {
                 margin: EdgeInsets.only(
                     left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
                 child: TextButton(
+                    child: Text('Submit'),
+
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => MainDrawer()),
-                    // );
-                  },
-                  child: Text('Submit'),
+                    showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content: Stack(
+                                  children: <Widget>[
+                                    Form(
+                                      child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Align(
+                                              alignment: Alignment.center,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: Text(
+                                                'Review Submitted!',
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  primary: Colors.amber,
+                                                ),
+                                                child: Text('OK'),
+                                                onPressed: () {
+                                                   Navigator.push(
+                                                     context,
+                                                     MaterialPageRoute(
+                                                         builder: (context) =>
+                                                             MainPage()),
+                                                   );
+                                                },
+                                              ),
+                                            ),
+                                          ]
+                                      ),
                 ),
-              ),
-            ],
-          )
-        ],
+          ]
+       ),
+      );
+        }
+      );
+                  }
+                ),
       ),
+            ])
+         ] ),
     );
   }
 }

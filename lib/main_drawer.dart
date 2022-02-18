@@ -2,11 +2,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gighub/about.dart';
 import 'package:gighub/auth_service.dart';
-import 'package:gighub/main_drawer.dart';
+import 'package:gighub/payments.dart';
 import 'package:gighub/profile_user.dart';
 import 'package:provider/provider.dart';
-import 'help.dart';
+import 'package:gighub/help.dart';
 
 class MainDrawer extends StatefulWidget {
   final String userImage;
@@ -19,6 +20,8 @@ class MainDrawer extends StatefulWidget {
 class _MainDrawerState extends State<MainDrawer> {
   User? user = FirebaseAuth.instance.currentUser;
 
+
+ static const IconData verified =IconData(0xe699, fontFamily: 'MaterialIcons');
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
     CollectionReference users = FirebaseFirestore.instance.collection('users');
@@ -55,6 +58,12 @@ class _MainDrawerState extends State<MainDrawer> {
                             ),
                             Text(streamSnapshot.data!['lastname'],
                                 style: TextStyle(fontSize: 22)),
+                                 IconButton(
+                    onPressed: () {},
+                    icon: new Icon(Icons.verified),
+                    color: Colors.black,
+                    highlightColor: Colors.white,
+                  ),
                           ]),
                         ),
                         Text(streamSnapshot.data!['phone'],
@@ -81,8 +90,11 @@ class _MainDrawerState extends State<MainDrawer> {
                 ListTile(
                   leading: Icon(Icons.payment, color: Colors.teal[400]),
                   title: TextButton(
-                    onPressed: () {},
-                    child: Text('Payment methods',
+                    onPressed: () {
+                 Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => Payments()));
+                    },
+                    child: Text('Payments',
                         style: TextStyle(fontSize: 18, color: Colors.black)),
                   ),
                 ),
@@ -91,8 +103,8 @@ class _MainDrawerState extends State<MainDrawer> {
                   leading: Icon(Icons.help_outline, color: Colors.teal[400]),
                   title: TextButton(
                     onPressed: () {
-                      //   Navigator.pushReplacement(
-                      //       context, MaterialPageRoute(builder: (context) => ));
+                         Navigator.pushReplacement(
+                             context, MaterialPageRoute(builder: (context) => Help()));
                     },
                     child: Text('Help',
                         style: TextStyle(fontSize: 18, color: Colors.black)),
@@ -104,7 +116,7 @@ class _MainDrawerState extends State<MainDrawer> {
                   title: TextButton(
                     onPressed: () {
                       Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => Help()));
+                          MaterialPageRoute(builder: (context) => About()));
                     },
                     child: Text('About',
                         style: TextStyle(fontSize: 18, color: Colors.black)),
