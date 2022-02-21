@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta name="viewport" content="with=device-width, initial-scale=1.0">
+   <title>Gig Hub</title>
+   <link rel="stylesheet" href="style.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link
+      href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&family=Poppins:ital,wght@0,100;0,200;0,400;0,600;0,700;1,100&display=swap"
+      rel="stylesheet">
+      <script src="https://kit.fontawesome.com/6dababb460.js" crossorigin="anonymous"></script>
+
+
+
+</head>
+
+<body>
+   <section class="meet-header">
+      <nav>
+         <a href="index.html"><img src="images/gighub.png"></a>
+         <div class="nav-links" id="navLinks">
+            <i class="fas fa-times" onclick="hideMenu()"></i>
+            <ul>
+               <li><a href="index.html">HOME</a></li>
+               <li><a href="about.html">ABOUT</a></li>
+               <li><a href="meet.html">MEET THE TEAM</a></li>
+               <li><a href="contact.html">CONTACT</a></li>
+
+
+            </ul>
+
+         </div>
+         <i class="fas fa-bars" onclick="showMenu()"></i>
+      </nav>
+      <h1>The Team</h1>
+
+   </section>
+
+   <!---The team--->
+   <section class="team">
+      <h1>Our Team</h1>
+      <p>We are a group of zealous youth with the aim to touch the lives of many unemployed individuals and those seeking to do jobs/tasks for
+         pay. Free lance labourers are also expected to benefit from our application. 
+         Overall,we seek to uplift the livelihoods of the student community(for now) 
+         and the country overall(in due time).
+      </p>
+      <div class="row">
+         <div class="team-col">
+            <img src="images/students.jpeg">
+            <div class="info">
+               <h2>Naiga Shamira</h2>
+               <p>Computer Scientist<br>shamiranaiga2@gmail.com</p>
+            </div>
+         </div>
+         <div class="team-col">
+            <img src="images/freelance2.jpeg">
+            <div class="info">
+               <h2>Mene Kevin</h2>
+               <p>Computer Scientist<br>menekevin11@gmail.com</p>
+            </div>
+         </div>
+         <div class="team-col">
+            <img src="images/pregnant.jpeg">
+            <div class="info">
+               <h2>Bbosa Vincent</h2>
+               <p>Computer Scientist<br>vincent@gmail.com</p>
+            </div>
+         </div>
+          </div>
+
+
+   </section>
+   <!-----team2---->
+   <section class="team2">
+      <div class="row">
+         <div class="team-col">
+            <img src="images/pregnant.jpeg">
+            <div class="info">
+               <h2>Nyombi Cedric</h2>
+               <p>Computer Scientist<br>vincent@gmail.com</p>
+            </div>
+         </div>
+         <div class="team-col">
+            <img src="images/pregnant.jpeg">
+            <div class="info">
+               <h2>Wanyama Edgar Francis</h2>
+               <p>Computer Scientist<br>vincent@gmail.com</p>
+            </div>
+         </div>
+      </div>
+
+   </section>
+
+
+
+   
+   
+   <!-----footer---->
+   <section class="footer">
+      <h3>Connect with us</h3>
+      <p>Find us:</p>
+      <div class="icons">
+         <i class="fab fa-facebook-square"></i>
+         <i class="fab fa-twitter-square"></i>
+         <i class="fab fa-instagram-square"></i>
+         <i class="fab fa-linkedin"></i>
+      
+      </div>
+      <p>Made with <i class="fas fa-heart"></i> by Mene Kevin.</p>
+   </section>
+
+
+
+
+
+<!--------JavaScript for togo menu------------->
+   <script>
+      var navLinks = document.getElementById("navLinks");
+   function showMenu(){
+      navLinks.style.right="0";
+   }
+   function hideMenu(){
+      navLinks.style.right="-200px";}
+   </script>
+</body>
+
+
+
+</html>
